@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✏️ [수정 방법] 아래 <title> 태그 안의 텍스트가 브라우저 탭에 표시됩니다. -->
+  <title>청라복된교회 – Cheongra Blessed Church</title>
+
+  <!-- Google Fonts: 본문용 Noto Serif KR, 영문 장식용 Cormorant Garamond -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================================================
+       CSS 변수 – 색상·폰트·간격을 한 곳에서 관리합니다.
+       색상을 바꾸고 싶다면 아래 변수 값만 수정하세요.
+    =================================================== */
+    :root {
+      --cream:      #faf7f2;       /* 배경색 – 따뜻한 크림색 */
+      --warm-white: #fff9f2;       /* 카드 배경 */
+      --gold:       #b89a5a;       /* 포인트 금색 */
+      --gold-light: #d4bc82;       /* 밝은 금색 */
+      --brown:      #5c3d2e;       /* 짙은 갈색 텍스트 */
+      --brown-mid:  #7a5c45;       /* 중간 갈색 */
+      --sage:       #8da68f;       /* 세이지 그린 포인트 */
+      --sage-light: #c9deca;       /* 연한 그린 배경 */
+      --text-main:  #3a2e26;       /* 본문 글자색 */
+      --text-sub:   #7a6a5a;       /* 보조 글자색 */
+      --shadow:     0 4px 24px rgba(90, 60, 30, 0.10);
+      --radius:     14px;
+      --font-serif: 'Noto Serif KR', 'Georgia', serif;
+      --font-deco:  'Cormorant Garamond', serif;
+    }
+
+    /* ── 기본 리셋 ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-serif);
+      background-color: var(--cream);
+      color: var(--text-main);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===================================================
+       헤더 / HERO 섹션
+    =================================================== */
+    header {
+      position: relative;
+      background: linear-gradient(160deg, #3a2416 0%, #5c3d2e 45%, #7a5c45 100%);
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px 100px;
+      overflow: hidden;
+    }
+
+    /* 배경 장식 원 */
+    header::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,154,90,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(141,166,143,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* 십자가 장식 아이콘 */
+    .cross-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; height: 52px;
+      border: 2px solid rgba(184,154,90,0.6);
+      border-radius: 50%;
+      margin-bottom: 20px;
+      animation: fadeDown 0.8s ease both;
+    }
+    .cross-icon svg { width: 26px; height: 26px; fill: var(--gold-light); }
+
+    /* ✏️ [수정] 교회 이름을 바꾸려면 아래 <h1> 태그 안을 수정하세요. */
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      color: #fff;
+      animation: fadeDown 0.9s ease 0.1s both;
+    }
+    .hero-name span {
+      display: block;
+      font-family: var(--font-deco);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 0.18em;
+      margin-top: 6px;
+    }
+
+    /* ✏️ [수정] 환영 문구를 바꾸려면 아래 <p class="hero-tagline"> 안을 수정하세요. */
+    .hero-tagline {
+      margin-top: 18px;
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.82);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeDown 1s ease 0.2s both;
+    }
+
+    /* 황금 구분선 */
+    .gold-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 22px auto 0;
+      animation: fadeDown 1s ease 0.3s both;
+    }
+
+    /* ===================================================
+       공통 섹션 레이아웃
+    =================================================== */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .section-title {
+      font-size: clamp(1.3rem, 4vw, 1.75rem);
+      font-weight: 600;
+      color: var(--brown);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-title::before {
+      content: '✦ ';
+      color: var(--gold);
+      font-size: 0.8em;
+    }
+    .section-title::after {
+      content: ' ✦';
+      color: var(--gold);
+      font-size: 0.8em;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.93rem;
+      margin-bottom: 36px;
+    }
+
+    /* ===================================================
+       예배 안내 섹션
+    =================================================== */
+    #worship { background: var(--warm-white); }
+    #worship .section { padding-bottom: 70px; }
+
+    /* 예배 카드 그리드 */
+    .worship-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .worship-card {
+      background: var(--cream);
+      border: 1px solid rgba(184,154,90,0.25);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .worship-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+    .worship-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(90,60,30,0.14);
+    }
+
+    /* ✏️ [수정] 예배 카드 안의 내용을 바꾸려면
+       아래 .worship-card 블록 안의 텍스트를 수정하세요. */
+    .worship-card .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .worship-card .card-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+    .worship-card .card-time {
+      font-family: var(--font-deco);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .worship-card .card-day {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+    }
+    .worship-card .card-note {
+      margin-top: 12px;
+      font-size: 0.83rem;
+      color: var(--sage);
+      background: var(--sage-light);
+      border-radius: 20px;
+      padding: 4px 12px;
+      display: inline-block;
+    }
+
+    /* ===================================================
+       소식 및 링크 섹션
+    =================================================== */
+    #links { background: var(--cream); }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    /* ✏️ [수정] 버튼 링크(href)를 바꾸려면 아래 <a href="..."> 안의 URL을 수정하세요.
+       예) href="https://your-blog.com/bulletin" */
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: var(--warm-white);
+      border: 1px solid rgba(184,154,90,0.2);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .link-card::after {
+      content: '→';
+      position: absolute;
+      right: 22px;
+      font-size: 1.1rem;
+      color: var(--gold);
+      transition: right 0.2s ease;
+    }
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(90,60,30,0.13);
+      border-color: var(--gold-light);
+    }
+    .link-card:hover::after { right: 16px; }
+
+    .link-card .link-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .link-icon.bulletin  { background: #fdefd5; }
+    .link-icon.prayer    { background: #ddeedd; }
+    .link-icon.sermon    { background: #dce8f5; }
+
+    .link-card .link-text strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 2px;
+    }
+    .link-card .link-text span {
+      font-size: 0.83rem;
+      color: var(--text-sub);
+    }
+
+    /* ===================================================
+       말씀 띠 (성경 구절 배너)
+    =================================================== */
+    .verse-banner {
+      background: linear-gradient(135deg, var(--brown) 0%, #3a2416 100%);
+      color: #fff;
+      text-align: center;
+      padding: 50px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .verse-banner::before {
+      content: '❝';
+      position: absolute;
+      top: -10px; left: 24px;
+      font-size: 8rem;
+      color: rgba(184,154,90,0.15);
+      font-family: var(--font-deco);
+      line-height: 1;
+    }
+    /* ✏️ [수정] 성경 구절 문구를 바꾸려면 아래 <p class="verse-text"> 안을 수정하세요. */
+    .verse-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.92);
+      max-width: 600px;
+      margin: 0 auto 14px;
+      line-height: 1.9;
+      position: relative;
+    }
+    .verse-ref {
+      font-family: var(--font-deco);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+    }
+
+    /* ===================================================
+       푸터 / 찾아오시는 길
+    =================================================== */
+    footer {
+      background: #2a1e16;
+      color: rgba(255,255,255,0.75);
+      padding: 56px 24px 36px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+      letter-spacing: 0.06em;
+    }
+    .footer-logo-sub {
+      font-family: var(--font-deco);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold-light);
+      letter-spacing: 0.15em;
+      margin-bottom: 28px;
+    }
+    .footer-divider {
+      width: 40px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 28px;
+      opacity: 0.5;
+    }
+
+    /* ✏️ [수정] 교회 주소를 바꾸려면 .footer-info 안의 내용을 수정하세요. */
+    .footer-info {
+      font-size: 0.9rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.65);
+    }
+    .footer-info strong {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+    .footer-map-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 11px 28px;
+      border: 1px solid rgba(184,154,90,0.45);
+      border-radius: 40px;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .footer-map-btn:hover {
+      background: rgba(184,154,90,0.15);
+      color: #fff;
+    }
+    .footer-copy {
+      margin-top: 36px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ===================================================
+       네비게이션 바 (스크롤 시 고정)
+    =================================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(58, 36, 22, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.72);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* 모바일에서 네비 링크 숨김 → 햄버거 버튼 */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* 모바일 드롭다운 메뉴 */
+    .nav-dropdown {
+      display: none;
+      position: absolute;
+      top: 56px; right: 0; left: 0;
+      background: rgba(42,28,18,0.98);
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-dropdown.open { display: block; }
+    .nav-dropdown a {
+      display: block;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-dropdown a:last-child { border-bottom: none; }
+
+    /* ===================================================
+       애니메이션
+    =================================================== */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 스크롤 진입 시 나타나는 요소 초기 상태 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================================================
+       반응형 미디어 쿼리
+    =================================================== */
+    @media (max-width: 600px) {
+      header { padding: 60px 20px 80px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .worship-grid { grid-template-columns: 1fr; }
+      .links-grid   { grid-template-columns: 1fr; }
+
+      .section { padding: 48px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       네비게이션 바
+       ✏️ [수정] 메뉴 이름을 바꾸려면 아래 <a> 태그 안 텍스트를 수정하세요.
+  ================================================ -->
+  <nav id="main-nav">
+    <!-- ✏️ 좌측 교회 이름 -->
+    <div class="nav-brand">청라복된교회</div>
+
+    <!-- 데스크톱 메뉴 -->
+    <ul class="nav-links">
+      <li><a href="#worship">예배안내</a></li>
+      <li><a href="#links">소식·링크</a></li>
+      <li><a href="#footer">찾아오시는 길</a></li>
+    </ul>
+
+    <!-- 모바일 햄버거 버튼 -->
+    <div class="nav-hamburger" id="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </div>
+
+    <!-- 모바일 드롭다운 -->
+    <div class="nav-dropdown" id="nav-dropdown">
+      <a href="#worship"  onclick="closeMenu()">예배안내</a>
+      <a href="#links"    onclick="closeMenu()">소식·링크</a>
+      <a href="#footer"   onclick="closeMenu()">찾아오시는 길</a>
+    </div>
+  </nav>
+
+  <!-- ================================================
+       HERO / 상단 타이틀
+       ✏️ [수정] 교회 이름, 환영 문구를 바꾸려면 아래 텍스트를 수정하세요.
+  ================================================ -->
+  <header>
+    <!-- 십자가 아이콘 -->
+    <div class="cross-icon">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect x="13" y="2"  width="6" height="28" rx="2"/>
+        <rect x="2"  y="10" width="28" height="6"  rx="2"/>
+      </svg>
+    </div>
+
+    <!-- ✏️ 교회 이름 -->
+    <h1 class="hero-name">
+      청라복된교회
+      <span>Cheongra Blessed Church</span>
+    </h1>
+
+    <!-- ✏️ 환영 문구 -->
+    <p class="hero-tagline">
+      하나님의 은혜와 평안이 넘치는 곳,<br>
+      당신을 따뜻하게 환영합니다.
+    </p>
+
+    <div class="gold-divider"></div>
+  </header>
+
+  <!-- ================================================
+       예배 안내 섹션
+       ✏️ [수정] 예배 이름·시간을 바꾸려면 각 .worship-card 안의 내용을 수정하세요.
+  ================================================ -->
+  <section id="worship">
+    <div class="section">
+      <h2 class="section-title reveal">예배 안내</h2>
+      <p class="section-sub reveal">함께 모여 드리는 예배에 여러분을 초대합니다</p>
+
+      <div class="worship-grid">
+
+        <!-- 예배 카드 1: 주일 대예배 -->
+        <div class="worship-card reveal">
+          <div class="card-icon">🕊️</div>
+          <!-- ✏️ 예배 이름 -->
+          <div class="card-name">주일 대예배</div>
+          <!-- ✏️ 예배 시간 -->
+          <div class="card-time">10:00 AM</div>
+          <!-- ✏️ 요일 -->
+          <div class="card-day">매주 일요일</div>
+          <!-- ✏️ 추가 안내 메모 (없애고 싶으면 이 줄 삭제) -->
+          <div class="card-note">본당 예배</div>
+        </div>
+
+        <!-- 예배 카드 2: 목요 집회 -->
+        <div class="worship-card reveal" style="transition-delay:0.1s">
+          <div class="card-icon">🙏</div>
+          <div class="card-name">목요 집회</div>
+          <div class="card-time">2:00 PM</div>
+          <div class="card-day">매주 목요일</div>
+          <div class="card-note">기도 및 말씀</div>
+        </div>
+
+        <!-- 예배 카드 3: 새벽 기도회 (✏️ 필요 없으면 이 카드 블록 삭제 가능) -->
+        <div class="worship-card reveal" style="transition-delay:0.2s">
+          <div class="card-icon">🌅</div>
+          <div class="card-name">새벽 기도회</div>
+          <div class="card-time">5:30 AM</div>
+          <div class="card-day">월 – 토요일</div>
+          <div class="card-note">소예배실</div>
+        </div>
+
+        <!-- 예배 카드 4: 청년부 예배 (✏️ 필요 없으면 이 카드 블록 삭제 가능) -->
+        <div class="worship-card reveal" style="transition-delay:0.3s">
+          <div class="card-icon">✨</div>
+          <div class="card-name">청년부 예배</div>
+          <div class="card-time">12:00 PM</div>
+          <div class="card-day">매주 일요일</div>
+          <div class="card-note">청년부 전용</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       성경 구절 배너
+       ✏️ [수정] 성경 구절과 출처를 바꾸려면 아래 텍스트를 수정하세요.
+  ================================================ -->
+  <div class="verse-banner">
+    <p class="verse-text">
+      "수고하고 무거운 짐 진 자들아 다 내게로 오라<br>
+      내가 너희를 쉬게 하리라"
+    </p>
+    <div class="verse-ref">마태복음 11 : 28</div>
+  </div>
+
+  <!-- ================================================
+       소식 및 링크 섹션
+       ✏️ [수정] 버튼 링크(href)를 실제 URL로 바꾸세요.
+             예) href="https://drive.google.com/..." 형식으로 수정
+  ================================================ -->
+  <section id="links">
+    <div class="section">
+      <h2 class="section-title reveal">소식 및 링크</h2>
+      <p class="section-sub reveal">이번 주 교회 소식을 확인하세요</p>
+
+      <div class="links-grid">
+
+        <!-- 버튼 1: 주보 -->
+        <!-- ✏️ href="여기에 주보 링크를 붙여넣으세요" -->
+        <a href="#" class="link-card reveal" target="_blank" rel="noopener">
+          <div class="link-icon bulletin">📋</div>
+          <div class="link-text">
+            <strong>이번 주 주보 보기</strong>
+            <span>이번 주 예배 순서 및 공지</span>
+          </div>
+        </a>
+
+        <!-- 버튼 2: 기도 요청 -->
+        <!-- ✏️ href="여기에 기도 요청 폼 링크를 붙여넣으세요 (예: 구글폼 링크)" -->
+        <a href="#" class="link-card reveal" style="transition-delay:0.1s" target="_blank" rel="noopener">
+          <div class="link-icon prayer">🙏</div>
+          <div class="link-text">
+            <strong>온라인 기도요청 제출</strong>
+            <span>기도 제목을 나눠주세요</span>
+          </div>
+        </a>
+
+        <!-- 버튼 3: 설교 영상 -->
+        <!-- ✏️ href="여기에 유튜브 또는 영상 링크를 붙여넣으세요" -->
+        <a href="#" class="link-card reveal" style="transition-delay:0.2s" target="_blank" rel="noopener">
+          <div class="link-icon sermon">▶️</div>
+          <div class="link-text">
+            <strong>설교 영상 시청하기</strong>
+            <span>지난 예배 말씀 다시 보기</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================
+       푸터 / 찾아오시는 길
+       ✏️ [수정] 주소·전화번호·이메일 등 교회 정보를 수정하세요.
+  ================================================ -->
+  <footer id="footer">
+    <div class="footer-logo">청라복된교회</div>
+    <div class="footer-logo-sub">Cheongra Blessed Church</div>
+    <div class="footer-divider"></div>
+
+    <div class="footer-info">
+      <!-- ✏️ 아래 주소를 실제 교회 주소로 바꾸세요 -->
+      <strong>주소</strong><br>
+      인천광역시 서구 청라동 000-00 청라복된교회<br><br>
+
+      <!-- ✏️ 아래 전화번호를 실제 번호로 바꾸세요 -->
+      <strong>전화</strong><br>
+      032-000-0000<br><br>
+
+      <!-- ✏️ 아래 이메일을 실제 교회 이메일로 바꾸세요 -->
+      <strong>이메일</strong><br>
+      cheongra@example.com
+    </div>
+
+    <!-- ✏️ href 안에 네이버 지도 또는 카카오 지도 링크를 붙여넣으세요 -->
+    <a href="#" class="footer-map-btn" target="_blank" rel="noopener">
+      🗺 지도에서 찾기
+    </a>
+
+    <!-- ✏️ 저작권 연도와 교회 이름을 수정하세요 -->
+    <p class="footer-copy">© 2025 청라복된교회. All rights reserved.</p>
+  </footer>
+
+  <!-- ================================================
+       JavaScript – 햄버거 메뉴 & 스크롤 애니메이션
+       ⚠️ 이 부분은 수정하지 않는 것을 권장합니다.
+  ================================================ -->
+  <script>
+    // ── 햄버거 메뉴 토글 ──
+    const hamburger   = document.getElementById('hamburger');
+    const navDropdown = document.getElementById('nav-dropdown');
+
+    hamburger.addEventListener('click', () => {
+      navDropdown.classList.toggle('open');
+    });
+
+    function closeMenu() {
+      navDropdown.classList.remove('open');
+    }
+
+    // 화면 바깥 클릭 시 메뉴 닫기
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navDropdown.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // ── 스크롤 등장 애니메이션 (IntersectionObserver) ──
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // 한 번만 실행
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
